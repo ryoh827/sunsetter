@@ -48,12 +48,34 @@ When the deprecated field is accessed, you'll see warning messages like this:
 [SUNSETTER] Please update your code to use alternative methods.
 ```
 
+### Customizing Log Output
+
+You can customize how deprecation warnings are logged:
+
+```ruby
+# In Rails, you might want to use Rails.logger
+Sunsetter.configure do |config|
+  config.logger = ->(message) { Rails.logger.warn(message) }
+end
+
+# Or use your own logger
+Sunsetter.configure do |config|
+  config.logger = ->(message) { MyLogger.warn(message) }
+end
+
+# Or suppress warnings entirely
+Sunsetter.configure do |config|
+  config.logger = ->(message) { } # no-op
+end
+```
+
 ## Features
 
 - Displays warnings when deprecated fields are accessed
 - Shows caller information (file name and line number)
 - Prevents usage in non-Mongoid::Document models
 - Implementation is independent of include order
+- Customizable logging behavior
 
 ## Development
 
