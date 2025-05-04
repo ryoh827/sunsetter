@@ -5,6 +5,10 @@ module Sunsetter
 
   module ClassMethods
     def deprecate_field(*field_names)
+      unless include?(Mongoid::Document)
+        raise "Sunsetter can only be used in Mongoid::Document models"
+      end
+
       field_names.each do |field_name|
         original_method = instance_method(field_name)
         

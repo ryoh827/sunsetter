@@ -10,12 +10,20 @@ Mongoid.configure do |config|
 end
 
 class TestModel
-  include Sunsetter
   include Mongoid::Document
+  include Sunsetter
 
   field :name
   field :email
   deprecate_field :name
+end
+
+class NonMongoidModel
+  include Sunsetter
+
+  def self.deprecate_field(*args)
+    super
+  end
 end
 
 class TestSunsetter < Minitest::Test
@@ -35,5 +43,28 @@ class TestSunsetter < Minitest::Test
       @model.email
     end
     assert_empty err
+  end
+
+  def test_raises_error_when_used_in_non_mongoid_model
+    error = assert_raises(RuntimeError) do
+      NonMongoidModel.deprecate_field(:something)
+    end
+    assert_equal "Sunsetter can only be used in Mongoid::Document models", error.message
+  end
+
+  def test_include_order_does_not_matter
+    klass = Class.new do
+      include Sunsetter
+      include Mongoid::Document
+
+      field :name
+      deprecate_field :name
+    end
+
+    model = klass.new
+    _, err = capture_io do
+      model.name
+    end
+    assert_match(/warning: .*\.name is deprecated\./, err)
   end
 end 
