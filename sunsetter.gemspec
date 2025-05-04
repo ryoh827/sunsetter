@@ -8,10 +8,11 @@ Gem::Specification.new do |spec|
   spec.authors = ["ryoh827"]
   spec.email = ["ryoh827.dev@gmail.com"]
 
-  spec.summary = "A gem to mark Mongoid fields as deprecated with warning messages"
-  spec.description = "Sunsetter provides a simple way to mark Mongoid fields as deprecated and show warning messages when they are accessed."
-  spec.homepage = "https://github.com/ryoh827/sunsetter"
-  spec.license = "MIT"
+
+  spec.summary       = "A gem to mark Mongoid fields as deprecated with warning messages"
+  spec.description   = "Sunsetter provides a simple way to mark Mongoid fields as deprecated and show warning messages when they are accessed."
+  spec.homepage      = "https://github.com/ryoh827/sunsetter"
+  spec.license       = "MIT"
   spec.required_ruby_version = ">= 3.2.0"
 
   spec.metadata["homepage_uri"] = spec.homepage
