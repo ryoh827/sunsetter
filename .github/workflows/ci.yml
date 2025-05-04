@@ -26,9 +26,11 @@ jobs:
       with:
         ruby-version: ${{ matrix.ruby-version }}
         bundler-cache: true
-
     - name: Install dependencies
       run: bundle install
+
+    - name: Run standardrb
+      run: bundle exec standardrb
 
     - name: Run tests
       run: bundle exec ruby test/test_sunsetter.rb 
