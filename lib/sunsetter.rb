@@ -13,7 +13,8 @@ module Sunsetter
         original_method = instance_method(field_name)
         
         define_method(field_name) do |*args, &block|
-          warn "warning: #{self.class.name}.#{field_name} is deprecated."
+          caller_info = caller.first
+          warn "warning: #{self.class.name}.#{field_name} is deprecated. (called from #{caller_info})"
           original_method.bind(self).call(*args, &block)
         end
       end

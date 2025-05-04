@@ -35,7 +35,7 @@ class TestSunsetter < Minitest::Test
     _, err = capture_io do
       @model.name
     end
-    assert_match(/warning: TestModel.name is deprecated./, err)
+    assert_match(/warning: TestModel\.name is deprecated\. \(called from .*test_sunsetter\.rb:\d+.*\)/, err)
   end
 
   def test_non_deprecated_field_no_warning
@@ -65,6 +65,6 @@ class TestSunsetter < Minitest::Test
     _, err = capture_io do
       model.name
     end
-    assert_match(/warning: .*\.name is deprecated\./, err)
+    assert_match(/warning: .*\.name is deprecated\. \(called from .*test_sunsetter\.rb:\d+.*\)/, err)
   end
 end 
