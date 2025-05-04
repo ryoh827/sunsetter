@@ -1,0 +1,20 @@
+# Generated files
+*.gem
+/pkg/
+
+# Dependencies
+/.bundle/
+/vendor/bundle
+
+# Documentation
+/.yardoc/
+/_yardoc/
+/doc/
+
+# Temporary files
+/tmp/
+/test/tmp/
+
+# IDE
+*.iml
+.idea/
