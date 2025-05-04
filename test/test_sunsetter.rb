@@ -1,11 +1,11 @@
-require 'minitest/autorun'
-require 'mongoid'
-require_relative '../lib/sunsetter'
+require "minitest/autorun"
+require "mongoid"
+require_relative "../lib/sunsetter"
 
 Mongoid.configure do |config|
   config.clients.default = {
-    hosts: ['localhost:27017'],
-    database: 'test_database'
+    hosts: ["localhost:27017"],
+    database: "test_database"
   }
 end
 
@@ -48,9 +48,9 @@ class TestSunsetter < Minitest::Test
   def test_deprecated_field_warning_with_custom_logger
     messages = []
     Sunsetter.logger = ->(message) { messages << message }
-    
+
     @model.name
-    
+
     assert_equal 3, messages.size
     assert_match(/\[SUNSETTER\] TestModel#name is deprecated and will be removed in a future version\./, messages[0])
     assert_match(/\[SUNSETTER\] Called from: .*test_sunsetter\.rb:\d+.*/, messages[1])
@@ -67,9 +67,9 @@ class TestSunsetter < Minitest::Test
   def test_non_deprecated_field_no_warning_with_custom_logger
     messages = []
     Sunsetter.logger = ->(message) { messages << message }
-    
+
     @model.email
-    
+
     assert_empty messages
   end
 
@@ -112,10 +112,10 @@ class TestSunsetter < Minitest::Test
 
     model = klass.new
     model.name
-    
+
     assert_equal 3, messages.size
     assert_match(/\[SUNSETTER\] .*#name is deprecated and will be removed in a future version\./, messages[0])
     assert_match(/\[SUNSETTER\] Called from: .*test_sunsetter\.rb:\d+.*/, messages[1])
     assert_match(/\[SUNSETTER\] Please update your code to use alternative methods\./, messages[2])
   end
-end 
+end
